@@ -1,12 +1,12 @@
 // utils/config-negocio.js - VERSIÓN MULTI-TENANT CORREGIDA
-// CLIENTE: Hany Dorta Nails Designer
+// CLIENTE: Tulip Salón 
 
 console.log('🏢 config-negocio.js cargado');
 
 // ============================================
 // 🔥 CONFIGURACIÓN POR CLIENTE - ¡LO ÚNICO QUE CAMBIA!
 // ============================================
-const NEGOCIO_ID_POR_DEFECTO = '99756b6d-1c65-4239-a4e9-77855bed94b7'; // ID de Hany Dorta Nails Designer
+const NEGOCIO_ID_POR_DEFECTO = '1d66b0a1-040e-49e6-9e1e-b69a605d6c18'; // ID de Tulip Salón 
 
 // Hacer accesible globalmente
 window.NEGOCIO_ID_POR_DEFECTO = NEGOCIO_ID_POR_DEFECTO;
@@ -116,7 +116,7 @@ window.cargarConfiguracionNegocio = async function(forceRefresh = false) {
  */
 window.getNombreNegocio = async function() {
     const config = await window.cargarConfiguracionNegocio();
-    return config?.nombre || 'Hany Dorta Nails Designer';
+    return config?.nombre || 'Tulip Salón ';
 };
 
 /**
@@ -124,7 +124,7 @@ window.getNombreNegocio = async function() {
  */
 window.getTelefonoDuenno = async function() {
     const config = await window.cargarConfiguracionNegocio();
-    return config?.telefono || '58054096';
+    return config?.telefono || '53073831';
 };
 
 /**
@@ -132,7 +132,7 @@ window.getTelefonoDuenno = async function() {
  */
 window.getEmailNegocio = async function() {
     const config = await window.cargarConfiguracionNegocio();
-    return config?.email || 'dortahany@gmail.com';
+    return config?.email || 'yenilet.dumenigo@gmail.com';
 };
 
 /**
@@ -164,7 +164,7 @@ window.getHorarioAtencion = async function() {
  */
 window.getMensajeBienvenida = async function() {
     const config = await window.cargarConfiguracionNegocio();
-    return config?.mensaje_bienvenida || '¡Bienvenida a Hany Dorta Nails Designer!';
+    return config?.mensaje_bienvenida || '¡Bienvenida a Tulip Salón !';
 };
 
 /**
@@ -180,7 +180,7 @@ window.getMensajeConfirmacion = async function() {
  */
 window.getNtfyTopic = async function() {
     const config = await window.cargarConfiguracionNegocio();
-    return config?.ntfy_topic || 'hanydorta-nails';
+    return config?.ntfy_topic || 'tulipsalon';
 };
 
 /**
@@ -205,5 +205,5 @@ setTimeout(async () => {
     await window.cargarConfiguracionNegocio();
 }, 500);
 
-console.log('✅ config-negocio.js listo para Hany Dorta Nails Designer');
+console.log('✅ config-negocio.js listo para Tulip Salón ');
 console.log('🏷️  ID configurado:', NEGOCIO_ID_POR_DEFECTO);

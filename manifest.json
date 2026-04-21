@@ -1,20 +1,20 @@
 {
-  "name": "Hany Dorta Nails Designer",
-  "short_name": "Hany Nails",
+  "name": "Tulip Salón ",
+  "short_name": "Tulip",
   "description": "Uñas y belleza - Tu espacio de cuidado personal",
-  "start_url": "/hanydorta-nailsdesigner/",
-  "scope": "/hanydorta-nailsdesigner/",
+  "start_url": "/tulipsalon/",
+  "scope": "/tulipsalon/",
   "display": "standalone",
-  "background_color": "#d4a5e0",
-  "theme_color": "#d4a5e0",
+  "background_color": "#ec4899",
+  "theme_color": "#ec4899",
   "icons": [
     {
-      "src": "/hanydorta-nailsdesigner/icons/icon-192x192.png",
+      "src": "/tulipsalon/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/hanydorta-nailsdesigner/icons/icon-512x512.png",
+      "src": "/tulipsalon/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
