@@ -1,12 +1,12 @@
-// utils/config-negocio.js - VERSIÓN MULTI-TENANT CORREGIDA
-// CLIENTE: Tulip Salón 
+﻿// utils/config-negocio.js - VERSIÃ“N MULTI-TENANT CORREGIDA
+// CLIENTE: Tulip SalÃ³n 
 
-console.log('🏢 config-negocio.js cargado');
+console.log('ðŸ¢ config-negocio.js cargado');
 
 // ============================================
-// 🔥 CONFIGURACIÓN POR CLIENTE - ¡LO ÚNICO QUE CAMBIA!
+// ðŸ”¥ CONFIGURACIÃ“N POR CLIENTE - Â¡LO ÃšNICO QUE CAMBIA!
 // ============================================
-const NEGOCIO_ID_POR_DEFECTO = '1d66b0a1-040e-49e6-9e1e-b69a605d6c18'; // ID de Tulip Salón 
+const NEGOCIO_ID_POR_DEFECTO = '1d66b0a1-040e-49e6-9e1e-b69a605d6c18'; // ID de Tulip SalÃ³n 
 
 // Hacer accesible globalmente
 window.NEGOCIO_ID_POR_DEFECTO = NEGOCIO_ID_POR_DEFECTO;
@@ -22,7 +22,7 @@ window.getNegocioIdFromConfig = function() {
     return NEGOCIO_ID_POR_DEFECTO;
 };
 
-// Cache de configuración
+// Cache de configuraciÃ³n
 let configCache = null;
 let ultimaActualizacion = 0;
 const CACHE_DURATION = 2 * 60 * 1000; // 2 minutos
@@ -34,34 +34,34 @@ function getNegocioId() {
     // 1. Prioridad: lo que haya en localStorage (cuando el admin se loguea)
     const localId = localStorage.getItem('negocioId');
     if (localId) {
-        console.log('📌 Usando negocioId de localStorage:', localId);
+        console.log('ðŸ“Œ Usando negocioId de localStorage:', localId);
         return localId;
     }
     
     // 2. Si no, usar el ID por defecto
-    console.log('📌 Usando negocioId por defecto (quemado en código):', NEGOCIO_ID_POR_DEFECTO);
+    console.log('ðŸ“Œ Usando negocioId por defecto (quemado en cÃ³digo):', NEGOCIO_ID_POR_DEFECTO);
     return NEGOCIO_ID_POR_DEFECTO;
 }
 
 /**
- * Carga la configuración del negocio desde Supabase
+ * Carga la configuraciÃ³n del negocio desde Supabase
  */
 window.cargarConfiguracionNegocio = async function(forceRefresh = false) {
     const negocioId = getNegocioId();
     if (!negocioId) {
-        console.error('❌ No hay negocioId disponible');
+        console.error('âŒ No hay negocioId disponible');
         return null;
     }
 
-    // Usar caché si no se fuerza refresco
+    // Usar cachÃ© si no se fuerza refresco
     if (!forceRefresh && configCache && (Date.now() - ultimaActualizacion) < CACHE_DURATION) {
-        console.log('📦 Usando cache de configuración');
+        console.log('ðŸ“¦ Usando cache de configuraciÃ³n');
         return configCache;
     }
 
     try {
-        console.log('🌐 Cargando configuración del negocio desde Supabase...');
-        console.log('📡 ID del negocio:', negocioId);
+        console.log('ðŸŒ Cargando configuraciÃ³n del negocio desde Supabase...');
+        console.log('ðŸ“¡ ID del negocio:', negocioId);
         
         const url = `${window.SUPABASE_URL}/rest/v1/negocios?id=eq.${negocioId}&select=*`;
         
@@ -76,7 +76,7 @@ window.cargarConfiguracionNegocio = async function(forceRefresh = false) {
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error('❌ Error response:', errorText);
+            console.error('âŒ Error response:', errorText);
             return null;
         }
 
@@ -87,9 +87,9 @@ window.cargarConfiguracionNegocio = async function(forceRefresh = false) {
         ultimaActualizacion = Date.now();
         
         if (configCache) {
-            console.log('✅ Configuración cargada:');
+            console.log('âœ… ConfiguraciÃ³n cargada:');
             console.log('   - Nombre:', configCache.nombre);
-            console.log('   - Teléfono:', configCache.telefono);
+            console.log('   - TelÃ©fono:', configCache.telefono);
             console.log('   - Email:', configCache.email);
             console.log('   - Instagram:', configCache.instagram);
             console.log('   - Logo:', configCache.logo_url);
@@ -97,16 +97,16 @@ window.cargarConfiguracionNegocio = async function(forceRefresh = false) {
             // Guardar ID en localStorage para futuras sesiones
             const localId = localStorage.getItem('negocioId');
             if (!localId) {
-                console.log('💾 Guardando ID en localStorage');
+                console.log('ðŸ’¾ Guardando ID en localStorage');
                 localStorage.setItem('negocioId', negocioId);
             }
         } else {
-            console.log('⚠️ No se encontró configuración para el negocio');
+            console.log('âš ï¸ No se encontrÃ³ configuraciÃ³n para el negocio');
         }
         
         return configCache;
     } catch (error) {
-        console.error('❌ Error cargando configuración:', error);
+        console.error('âŒ Error cargando configuraciÃ³n:', error);
         return null;
     }
 };
@@ -116,15 +116,15 @@ window.cargarConfiguracionNegocio = async function(forceRefresh = false) {
  */
 window.getNombreNegocio = async function() {
     const config = await window.cargarConfiguracionNegocio();
-    return config?.nombre || 'Tulip Salón ';
+    return config?.nombre || 'Tulip SalÃ³n ';
 };
 
 /**
- * Obtiene el teléfono del dueño
+ * Obtiene el telÃ©fono del dueÃ±o
  */
 window.getTelefonoDuenno = async function() {
     const config = await window.cargarConfiguracionNegocio();
-    return config?.telefono || '53073831';
+    return config?.telefono || '55002272';
 };
 
 /**
@@ -152,7 +152,7 @@ window.getFacebook = async function() {
 };
 
 /**
- * Obtiene el horario de atención
+ * Obtiene el horario de atenciÃ³n
  */
 window.getHorarioAtencion = async function() {
     const config = await window.cargarConfiguracionNegocio();
@@ -164,19 +164,19 @@ window.getHorarioAtencion = async function() {
  */
 window.getMensajeBienvenida = async function() {
     const config = await window.cargarConfiguracionNegocio();
-    return config?.mensaje_bienvenida || '¡Bienvenida a Tulip Salón !';
+    return config?.mensaje_bienvenida || 'Â¡Bienvenida a Tulip SalÃ³n !';
 };
 
 /**
- * Obtiene el mensaje de confirmación
+ * Obtiene el mensaje de confirmaciÃ³n
  */
 window.getMensajeConfirmacion = async function() {
     const config = await window.cargarConfiguracionNegocio();
-    return config?.mensaje_confirmacion || 'Tu turno ha sido reservado con éxito';
+    return config?.mensaje_confirmacion || 'Tu turno ha sido reservado con Ã©xito';
 };
 
 /**
- * Obtiene el tópico de ntfy para notificaciones
+ * Obtiene el tÃ³pico de ntfy para notificaciones
  */
 window.getNtfyTopic = async function() {
     const config = await window.cargarConfiguracionNegocio();
@@ -184,7 +184,7 @@ window.getNtfyTopic = async function() {
 };
 
 /**
- * 🔥 NUEVA FUNCIÓN: Obtiene si el negocio requiere anticipo
+ * ðŸ”¥ NUEVA FUNCIÃ“N: Obtiene si el negocio requiere anticipo
  */
 window.getRequiereAnticipo = async function() {
     const config = await window.cargarConfiguracionNegocio();
@@ -192,18 +192,18 @@ window.getRequiereAnticipo = async function() {
 };
 
 /**
- * Verifica si el negocio ya está configurado
+ * Verifica si el negocio ya estÃ¡ configurado
  */
 window.negocioConfigurado = async function() {
     const config = await window.cargarConfiguracionNegocio();
     return config?.configurado || false;
 };
 
-// Precargar configuración al inicio
+// Precargar configuraciÃ³n al inicio
 setTimeout(async () => {
-    console.log('🔄 Precargando configuración automática...');
+    console.log('ðŸ”„ Precargando configuraciÃ³n automÃ¡tica...');
     await window.cargarConfiguracionNegocio();
 }, 500);
 
-console.log('✅ config-negocio.js listo para Tulip Salón ');
-console.log('🏷️  ID configurado:', NEGOCIO_ID_POR_DEFECTO);
+console.log('âœ… config-negocio.js listo para Tulip SalÃ³n ');
+console.log('ðŸ·ï¸  ID configurado:', NEGOCIO_ID_POR_DEFECTO);

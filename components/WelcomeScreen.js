@@ -1,4 +1,4 @@
-// components/WelcomeScreen.js - Versión con REDES SOCIALES (CORREGIDA - SIN DESBORDAMIENTO)
+﻿// components/WelcomeScreen.js - VersiÃ³n con REDES SOCIALES (CORREGIDA - SIN DESBORDAMIENTO)
 
 function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
     const [config, setConfig] = React.useState(null);
@@ -8,7 +8,7 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
     React.useEffect(() => {
         const cargarDatos = async () => {
             const configData = await window.cargarConfiguracionNegocio();
-            console.log('📱 WelcomeScreen - Config cargada:', configData);
+            console.log('ðŸ“± WelcomeScreen - Config cargada:', configData);
             setConfig(configData);
             setCargando(false);
         };
@@ -29,9 +29,9 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
     }
 
     const colorPrimario = config?.color_primario || '#ec4899';
-    const sticker = config?.especialidad?.toLowerCase().includes('uñas') ? '💅' : 
-                    config?.especialidad?.toLowerCase().includes('pelo') ? '💇‍♀️' : 
-                    config?.especialidad?.toLowerCase().includes('belleza') ? '🌸' : '💖';
+    const sticker = config?.especialidad?.toLowerCase().includes('uÃ±as') ? 'ðŸ’…' : 
+                    config?.especialidad?.toLowerCase().includes('pelo') ? 'ðŸ’‡â€â™€ï¸' : 
+                    config?.especialidad?.toLowerCase().includes('belleza') ? 'ðŸŒ¸' : 'ðŸ’–';
 
     // ============================================
     // FUNCIONES PARA ABRIR REDES SOCIALES
@@ -39,12 +39,17 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
     
     const abrirWhatsApp = () => {
         if (!config?.telefono) {
-            alert('📱 El número de WhatsApp no está configurado');
+            alert('ðŸ“± El nÃºmero de WhatsApp no estÃ¡ configurado');
             return;
         }
         
-        const telefonoLimpio = config.telefono.replace(/\D/g, '');
-        const mensaje = encodeURIComponent(`Hola! Quiero consultar sobre turnos en ${config?.nombre || 'el salón'}`);
+        const telefonoLimpio = window.normalizarTelefonoWhatsApp ? window.normalizarTelefonoWhatsApp(config.telefono) : null;
+        if (!telefonoLimpio) {
+            alert('El numero de WhatsApp no esta configurado correctamente');
+            return;
+        }
+
+        const mensaje = encodeURIComponent(`Hola! Quiero consultar sobre turnos en ${config?.nombre || 'el salon'}`);
         
         // Abrir WhatsApp
         window.open(`https://wa.me/${telefonoLimpio}?text=${mensaje}`, '_blank');
@@ -52,7 +57,7 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
 
     const abrirInstagram = () => {
         if (!config?.instagram) {
-            alert('📷 El usuario de Instagram no está configurado');
+            alert('ðŸ“· El usuario de Instagram no estÃ¡ configurado');
             return;
         }
         
@@ -66,7 +71,7 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
             // Intentar abrir la app primero
             window.location.href = `instagram://user?username=${usuario}`;
             
-            // Si no abre la app, abrir web después de 1 segundo
+            // Si no abre la app, abrir web despuÃ©s de 1 segundo
             setTimeout(() => {
                 window.open(`https://instagram.com/${usuario}`, '_blank');
             }, 1000);
@@ -78,11 +83,11 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
 
     const abrirFacebook = () => {
         if (!config?.facebook) {
-            alert('👤 La página de Facebook no está configurada');
+            alert('ðŸ‘¤ La pÃ¡gina de Facebook no estÃ¡ configurada');
             return;
         }
         
-        // Limpiar la URL/página
+        // Limpiar la URL/pÃ¡gina
         let pagina = config.facebook.trim();
         
         // Si solo es el nombre, construir URL
@@ -96,7 +101,7 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
         window.open(pagina, '_blank');
     };
 
-    // Verificar qué redes están configuradas
+    // Verificar quÃ© redes estÃ¡n configuradas
     const tieneWhatsApp = config?.telefono && config.telefono.length >= 8;
     const tieneInstagram = config?.instagram && config.instagram.trim() !== '';
     const tieneFacebook = config?.facebook && config.facebook.trim() !== '';
@@ -111,13 +116,13 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
             <div className="fixed inset-0 z-0">
                 <img 
                     src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=2071&auto=format&fit=crop"
-                    alt="Fondo de salón" 
+                    alt="Fondo de salÃ³n" 
                     className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/40"></div>
             </div>
 
-            {/* Botón volver - fijo en la parte superior */}
+            {/* BotÃ³n volver - fijo en la parte superior */}
             {onGoBack && (
                 <button
                     onClick={onGoBack}
@@ -148,24 +153,24 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
                             </div>
                         )}
                         
-                        {/* 🔥 TÍTULO CORREGIDO - SIN DESBORDAMIENTO */}
+                        {/* ðŸ”¥ TÃTULO CORREGIDO - SIN DESBORDAMIENTO */}
                         <div className="space-y-2">
                             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight drop-shadow-lg">
                                 Bienvenida a
                             </h1>
                             <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-pink-300 break-words px-2">
-                                {config?.nombre || 'Mi Salón'}
+                                {config?.nombre || 'Mi SalÃ³n'}
                             </div>
                         </div>
                         
                         {cliente && (
                             <p className="text-white/90 text-base sm:text-lg bg-black/20 inline-block px-4 py-1 rounded-full">
-                                ✨ {cliente.nombre} ✨
+                                âœ¨ {cliente.nombre} âœ¨
                             </p>
                         )}
                         
                         <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-lg mx-auto px-2">
-                            {config?.mensaje_bienvenida || '¡Bienvenida a nuestro salón!'}
+                            {config?.mensaje_bienvenida || 'Â¡Bienvenida a nuestro salÃ³n!'}
                         </p>
 
                         {/* BOTONES DE REDES SOCIALES */}
@@ -218,16 +223,16 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
                                 className="text-white text-base sm:text-lg font-bold py-3 sm:py-4 px-8 sm:px-10 rounded-full shadow-2xl transition-all transform hover:scale-110 active:scale-95 flex items-center justify-center gap-2 mx-auto border-2 border-pink-300 w-full sm:w-auto"
                                 style={{ backgroundColor: colorPrimario }}
                             >
-                                <span className="text-lg sm:text-xl">💖</span>
+                                <span className="text-lg sm:text-xl">ðŸ’–</span>
                                 <span>Reservar Turno</span>
-                                <span className="text-lg sm:text-xl">✨</span>
+                                <span className="text-lg sm:text-xl">âœ¨</span>
                             </button>
                         </div>
 
-                        {/* Horario de atención si está configurado */}
+                        {/* Horario de atenciÃ³n si estÃ¡ configurado */}
                         {config?.horario_atencion && (
                             <div className="text-xs sm:text-sm text-white/80 bg-black/20 p-3 rounded-lg mt-4">
-                                <span className="font-semibold">🕐 Horario:</span> {config.horario_atencion}
+                                <span className="font-semibold">ðŸ• Horario:</span> {config.horario_atencion}
                             </div>
                         )}
                     </div>
@@ -235,8 +240,8 @@ function WelcomeScreen({ onStart, onGoBack, cliente, userRol }) {
             </div>
 
             {/* Stickers flotantes decorativos (fijos) */}
-            <div className="fixed bottom-4 left-4 text-3xl sm:text-4xl opacity-30 rotate-12 select-none pointer-events-none">💅</div>
-            <div className="fixed top-20 right-4 text-3xl sm:text-4xl opacity-30 -rotate-12 select-none pointer-events-none">🌸</div>
+            <div className="fixed bottom-4 left-4 text-3xl sm:text-4xl opacity-30 rotate-12 select-none pointer-events-none">ðŸ’…</div>
+            <div className="fixed top-20 right-4 text-3xl sm:text-4xl opacity-30 -rotate-12 select-none pointer-events-none">ðŸŒ¸</div>
         </div>
     );
 }
