@@ -1,6 +1,6 @@
 // sw.js - Service Worker para Tulip Salón 
 
-const CACHE_NAME = 'tulipsalon-v29';
+const CACHE_NAME = 'tulipsalon-v26';
 const urlsToCache = [
   '/tulipsalon/',
   '/tulipsalon/index.html',
