@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tulip Salón </string>
+    <string name="title_activity_main">Tulip Salón </string>
+    <string name="package_name">com.tusalon.tulipsalon</string>
+    <string name="custom_url_scheme">com.tusalon.tulipsalon</string>
+</resources>

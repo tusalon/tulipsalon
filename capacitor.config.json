@@ -1,0 +1,12 @@
+{
+  "appId": "com.tusalon.tulipsalon",
+  "appName": "Tulip Salón ",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

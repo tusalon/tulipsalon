@@ -1,6 +1,6 @@
 // sw.js - Service Worker para Tulip Salón 
 
-const CACHE_NAME = 'tulipsalon-v29';
+const CACHE_NAME = 'tulipsalon-v47';
 const urlsToCache = [
   '/tulipsalon/',
   '/tulipsalon/index.html',
@@ -17,7 +17,14 @@ const urlsToCache = [
   '/tulipsalon/icons/icon-152x152.png',
   '/tulipsalon/icons/icon-192x192.png',
   '/tulipsalon/icons/icon-384x384.png',
-  '/tulipsalon/icons/icon-512x512.png'
+  '/tulipsalon/icons/icon-512x512.png',
+  '/tulipsalon/vendor/react.production.min.js',
+  '/tulipsalon/vendor/react-dom.production.min.js',
+  '/tulipsalon/vendor/babel.min.js',
+  '/tulipsalon/vendor/bcrypt.min.js',
+  '/tulipsalon/vendor/tailwind-browser.js',
+  '/tulipsalon/vendor/lucide/lucide.css',
+  '/tulipsalon/vendor/lucide/lucide.woff2'
 ];
 
 // ============================================
