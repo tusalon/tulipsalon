@@ -1,6 +1,6 @@
 // sw.js - Service Worker para Tulip Salón 
 
-const CACHE_NAME = 'tulipsalon-v47';
+const CACHE_NAME = 'tulipsalon-v49';
 const urlsToCache = [
   '/tulipsalon/',
   '/tulipsalon/index.html',
@@ -24,7 +24,9 @@ const urlsToCache = [
   '/tulipsalon/vendor/bcrypt.min.js',
   '/tulipsalon/vendor/tailwind-browser.js',
   '/tulipsalon/vendor/lucide/lucide.css',
-  '/tulipsalon/vendor/lucide/lucide.woff2'
+  '/tulipsalon/vendor/lucide/lucide.woff2',
+  '/tulipsalon/utils/push-config.js',
+  '/tulipsalon/utils/push-notifications.js'
 ];
 
 // ============================================
@@ -144,6 +146,51 @@ self.addEventListener('message', event => {
       });
     });
   }
+});
+
+// ============================================
+// WEB PUSH OPCIONAL
+// ============================================
+self.addEventListener('push', event => {
+  let payload = {};
+
+  try {
+    payload = event.data ? event.data.json() : {};
+  } catch (error) {
+    payload = {
+      title: 'RservasRoma',
+      body: event.data ? event.data.text() : 'Tienes una nueva notificación'
+    };
+  }
+
+  const title = payload.title || 'RservasRoma';
+  const options = {
+    body: payload.body || 'Tienes una nueva notificación',
+    icon: '/tulipsalon/icons/icon-192x192.png',
+    badge: '/tulipsalon/icons/icon-96x96.png',
+    tag: payload.tag || 'rservasroma',
+    data: {
+      url: payload.url || '/tulipsalon/admin.html',
+      ...(payload.data || {})
+    }
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+
+  const targetUrl = event.notification?.data?.url || '/tulipsalon/admin.html';
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
+      for (const client of clientList) {
+        if (client.url.includes(targetUrl) && 'focus' in client) return client.focus();
+      }
+      if (clients.openWindow) return clients.openWindow(targetUrl);
+      return null;
+    })
+  );
 });
 
 console.log('✅ Service Worker configurado para Tulip Salón ');
